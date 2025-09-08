@@ -9,9 +9,9 @@ When working with this project, always reference these core files first:
 
 ```bash
 # Essential project understanding
-.substrate/substrate.md           # Methodology and navigation
-.substrate/architecture/overview.md  # System architecture
-.substrate/guidelines.md          # Development standards
+.context/substrate.md           # Methodology and navigation
+.context/architecture/overview.md  # System architecture
+.context/guidelines.md          # Development standards
 ```
 
 ### Domain-Specific Context
@@ -19,13 +19,13 @@ For specific implementation tasks, combine relevant domain files:
 
 ```bash
 # Authentication tasks
-.substrate/auth/overview.md + .substrate/auth/security.md + .substrate/auth/integration.md
+.context/auth/overview.md + .context/auth/security.md + .context/auth/integration.md
 
 # API development
-.substrate/api/endpoints.md + .substrate/api/examples.md + .substrate/architecture/patterns.md
+.context/api/endpoints.md + .context/api/examples.md + .context/architecture/patterns.md
 
 # Database work
-.substrate/database/schema.md + .substrate/database/models.md + .substrate/database/migrations.md
+.context/database/schema.md + .context/database/models.md + .context/database/migrations.md
 ```
 
 ## Agent Prompt Patterns
@@ -33,14 +33,14 @@ For specific implementation tasks, combine relevant domain files:
 ### Code Generation Prompts
 ```
 Based on the following project documentation:
-[Include relevant .substrate files]
+[Include relevant .context files]
 
 Generate [specific component/feature] following the established patterns, security guidelines, and architectural decisions documented above.
 
 Requirements:
-- Follow the coding standards from .substrate/architecture/patterns.md
-- Implement security measures from .substrate/auth/security.md
-- Use the data models defined in .substrate/database/models.md
+- Follow the coding standards from .context/architecture/patterns.md
+- Implement security measures from .context/auth/security.md
+- Use the data models defined in .context/database/models.md
 ```
 
 ### Code Review Prompts
@@ -49,7 +49,7 @@ Review the following code against project standards:
 [Include code to review]
 
 Project context:
-[Include .substrate/architecture/patterns.md and .substrate/guidelines.md]
+[Include .context/architecture/patterns.md and .context/guidelines.md]
 
 Check for:
 - Adherence to established patterns
@@ -64,7 +64,7 @@ Debug this issue:
 [Describe the problem]
 
 Relevant project context:
-[Include domain-specific .substrate files]
+[Include domain-specific .context files]
 
 Consider the architectural decisions and trade-offs documented in the context when suggesting solutions.
 ```
@@ -151,13 +151,13 @@ npm run build
 
 ### Editor Integration
 Configure your editor to:
-- Auto-suggest patterns from .substrate files
+- Auto-suggest patterns from .context files
 - Validate against documented standards
 - Quick access to domain documentation
 
 ### AI Tool Configuration
 Set up your AI development tools to:
-- Automatically include relevant .substrate context
+- Automatically include relevant .context context
 - Validate output against project patterns
 - Suggest documentation updates for new patterns
 
