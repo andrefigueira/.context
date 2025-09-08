@@ -2,6 +2,8 @@
 
 This document provides comprehensive documentation for all REST API endpoints in [Your Project Name], including request/response formats, authentication requirements, and usage examples.
 
+> **Note**: If you already use structured API documentation like Swagger/OpenAPI, you can simply reference that specification here and ensure it's accessible to command line AI tools. This provides machine-readable API definitions that complement the human-readable examples below.
+
 ## Base Configuration
 
 ### Base URL
