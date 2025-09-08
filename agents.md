@@ -140,11 +140,13 @@ Consider the architectural decisions and trade-offs documented in the context wh
 
 ### CI/CD Integration
 ```bash
-# Validate code against documentation
-scripts/validate-against-substrate.sh
+# Example validation commands (implement according to your CI/CD system)
+# Lint documentation for consistency
+markdownlint .context/
 
-# Update documentation on merge
-scripts/update-substrate-docs.sh
+# Validate code examples compile/run
+go build ./...
+npm run build
 ```
 
 ### Editor Integration

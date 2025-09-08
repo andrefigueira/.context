@@ -25,7 +25,6 @@ internal/
 
 migrations/       # Database schema changes
 docs/            # API documentation
-scripts/         # Build and deployment scripts
 ```
 
 ### File Naming Conventions
