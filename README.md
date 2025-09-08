@@ -1,8 +1,8 @@
 # Substrate Methodology Template
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Stars](https://img.shields.io/github/stars/yourusername/substrate-template?style=social)](https://github.com/yourusername/substrate-template/stargazers)
-[![Documentation](https://img.shields.io/badge/docs-substrate-blue.svg)](./substrate/)
+[![Stars](https://img.shields.io/github/stars/andrefigueira/.context?style=social)](https://github.com/andrefigueira/.context/stargazers)
+[![Documentation](https://img.shields.io/badge/docs-substrate-blue.svg)](./.context/)
 
 A complete "Documentation as Code as Context" template implementing the Substrate Methodology. Transform any software project into a self-documenting, AI-optimized codebase with modular, Git-native documentation that serves as a living knowledge base.
 
@@ -20,7 +20,7 @@ The Substrate Methodology solves the critical problem of outdated documentation 
 
 1. **Clone and customize:**
    ```bash
-   git clone https://github.com/yourusername/substrate-template.git your-project
+   git clone https://github.com/andrefigueira/.context.git your-project
    cd your-project
    rm -rf .git && git init
    ```
@@ -39,14 +39,8 @@ The Substrate Methodology solves the critical problem of outdated documentation 
    vim .context/architecture/overview.md
    ```
 
-4. **Use with AI:**
-   ```bash
-   # Example: Generate auth middleware
-   cat .context/auth/overview.md .context/auth/security.md | your-ai-tool
-   
-   # Review AI agent guidelines
-   cat agents.md .context/substrate.md
-   ```
+4. **Generate your substrate with AI:**
+   Use the comprehensive AI prompt below to create domain-specific documentation for your project. See [AI-Assisted Substrate Generation](#ai-assisted-substrate-generation) section for the complete prompt.
 
 ## Why This Matters in 2025
 
@@ -122,6 +116,114 @@ echo "Based on the following documentation, implement user registration:" && \
 cat .context/auth/integration.md .context/database/models.md
 ```
 
+## AI-Assisted Substrate Generation
+
+**Recommended Approach**: Instead of manually writing documentation, use AI to generate comprehensive substrate documentation tailored to your specific project. This ensures consistency with the methodology while adapting to your unique architecture, tech stack, and business domain.
+
+### Complete AI Generation Prompt
+
+Copy and paste this prompt into your preferred AI tool (Claude, GPT-4, etc.) to generate substrate documentation for your project:
+
+```
+You are an expert technical writer specializing in the "Documentation as Code as Context" methodology. Create comprehensive substrate documentation following the exact structure and quality standards of this template: https://github.com/andrefigueira/.context
+
+PROJECT CONTEXT:
+- Project Name: [YOUR PROJECT NAME]
+- Tech Stack: [YOUR TECH STACK - e.g., Node.js/Express, React, PostgreSQL, Redis]
+- Architecture Pattern: [YOUR PATTERN - e.g., microservices, monolith, serverless]
+- Authentication Method: [YOUR AUTH - e.g., OAuth2, JWT, session-based]
+- Database Type: [YOUR DB - e.g., PostgreSQL, MongoDB, MySQL]
+- Target Audience: [YOUR USERS - e.g., internal APIs, public SaaS, enterprise]
+
+REQUIREMENTS:
+1. Generate content for ALL substrate domains: architecture, auth, api, database, guidelines
+2. Use my specific tech stack and adapt all code examples accordingly
+3. Include actual implementation patterns, not generic advice
+4. Add decision rationale sections explaining "why" choices were made
+5. Include Mermaid diagrams for architecture flows and database schemas
+6. Provide realistic error handling patterns
+7. Include performance considerations and security measures
+8. Add specific testing strategies for my tech stack
+9. Include deployment procedures for my infrastructure
+
+STRUCTURE TO FOLLOW:
+Create these files with comprehensive, production-ready content:
+
+substrate.md - Entry point with navigation and AI usage patterns
+architecture/
+├── overview.md - System architecture with Mermaid diagrams
+├── dependencies.md - Dependency injection patterns for my stack
+└── patterns.md - Code organization and error handling
+
+auth/
+├── overview.md - Authentication flow for my auth method
+├── integration.md - Framework integration patterns
+└── security.md - Security model and threat mitigation
+
+api/
+├── endpoints.md - API reference with my actual endpoints
+├── headers.md - HTTP headers and middleware patterns
+└── examples.md - Client implementations for my stack
+
+database/
+├── schema.md - Database schema with ERD for my data model
+├── models.md - Data models and validation for my stack
+└── migrations.md - Migration strategy for my database
+
+guidelines.md - Development workflow and deployment for my stack
+
+QUALITY STANDARDS:
+- Each file should be 400-800 words with practical examples
+- Include 2-3 realistic code snippets per file using my tech stack
+- Add "Decision History & Trade-offs" sections explaining architectural choices
+- Use consistent technical terminology throughout
+- Include specific performance benchmarks and security considerations
+- Provide actionable implementation guidance, not theoretical concepts
+
+EXAMPLE OUTPUT QUALITY:
+Reference the template structure at https://github.com/andrefigueira/.context but adapt ALL content to my specific project. Don't copy generic examples - create realistic implementations for my exact tech stack and business domain.
+
+START WITH: substrate.md as the entry point, then generate each domain systematically.
+```
+
+### Usage Instructions
+
+1. **Replace the bracketed placeholders** with your specific project details
+2. **Paste the prompt** into your AI tool of choice
+3. **Generate each domain** systematically (start with substrate.md)
+4. **Review and refine** the generated content for accuracy
+5. **Iterate on specific sections** that need more detail
+
+### Example Customization
+
+For a Node.js/Express API project:
+```
+PROJECT CONTEXT:
+- Project Name: TaskFlow API
+- Tech Stack: Node.js, Express.js, TypeScript, PostgreSQL, Redis, Docker
+- Architecture Pattern: Layered monolith with clear service boundaries
+- Authentication Method: JWT with refresh tokens
+- Database Type: PostgreSQL with Prisma ORM
+- Target Audience: Internal microservice for task management SaaS
+```
+
+### AI Tool Recommendations
+
+- **Claude (Anthropic)**: Excellent for following complex instructions and maintaining consistency
+- **GPT-4 (OpenAI)**: Great for code examples and technical accuracy
+- **Cursor/Continue**: IDE integration for iterative refinement
+
+### Quality Assurance
+
+After AI generation:
+1. **Validate code examples** actually work with your stack
+2. **Test database schemas** match your actual data model  
+3. **Verify security patterns** align with your compliance requirements
+4. **Update decision rationale** to reflect your specific constraints
+5. **Add team-specific conventions** not captured in the template
+
+This AI-assisted approach typically produces 80-90% complete documentation that requires minimal manual refinement, compared to weeks of manual documentation work.
+
 ## Contributing
 
 We welcome contributions to improve the Substrate Methodology template:
@@ -141,8 +243,8 @@ We welcome contributions to improve the Substrate Methodology template:
 
 ## Community
 
-- 🐛 **Report issues**: [GitHub Issues](https://github.com/yourusername/substrate-template/issues)
-- 💬 **Discussions**: [GitHub Discussions](https://github.com/yourusername/substrate-template/discussions)
+- 🐛 **Report issues**: [GitHub Issues](https://github.com/andrefigueira/.context/issues)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/andrefigueira/.context/discussions)
 - 📖 **Documentation**: [Substrate Methodology Guide](./.context/substrate.md)
 
 ## License
