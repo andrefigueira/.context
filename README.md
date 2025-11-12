@@ -1,4 +1,4 @@
-# Substrate Methodology Template
+# The .context method
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Stars](https://img.shields.io/github/stars/andrefigueira/.context?style=social)](https://github.com/andrefigueira/.context/stargazers)
@@ -51,6 +51,10 @@ Modern software development faces a documentation crisis:
 - Onboarding takes weeks instead of days
 
 The Substrate Methodology transforms documentation from a burden into a force multiplier, creating a comprehensive knowledge base that grows with your codebase.
+
+## Real-World Example
+
+See the methodology in action: [.context-designs](https://github.com/andrefigueira/.context-designs) - A complete UI component library built with Tailwind CSS using the .context method. This project demonstrates how documentation-as-context enables consistent design system implementation and AI-assisted component generation.
 
 ## Structure Overview
 
