@@ -79,6 +79,11 @@ agents.md                     # AI agent usage patterns and guidelines
 │   ├── schema.md            # PostgreSQL schema design
 │   ├── models.md            # Data models and validation
 │   └── migrations.md        # Migration strategy and tooling
+├── ui/                       # Frontend and design system
+│   ├── overview.md          # Component architecture and tokens
+│   └── patterns.md          # UI implementation patterns
+├── seo/                      # Search engine optimization
+│   └── overview.md          # Meta tags, structured data, performance
 └── guidelines.md             # Development workflows and standards
 ```
 
@@ -174,6 +179,13 @@ database/
 ├── models.md - Data models and validation for my stack
 └── migrations.md - Migration strategy for my database
 
+ui/
+├── overview.md - Component architecture, design tokens, specifications
+└── patterns.md - UI implementation patterns, forms, modals, data display
+
+seo/
+└── overview.md - Meta tags, structured data schemas, Core Web Vitals
+
 guidelines.md - Development workflow and deployment for my stack
 
 QUALITY STANDARDS:
@@ -257,23 +269,303 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Adapting to Your Tech Stack
 
-The template uses Go code examples but is designed to be adapted to any technology:
+The template uses Go code examples but is designed to be adapted to any technology. Below are complete examples showing how patterns translate across languages.
 
-### Popular Adaptations
-- **JavaScript/TypeScript**: Replace Go structs with TypeScript interfaces
-- **Python**: Convert Go models to Pydantic models or dataclasses
-- **Java**: Transform to Spring Boot patterns with JPA entities
-- **C#**: Adapt to ASP.NET Core with Entity Framework
-- **Rust**: Convert to Rust structs with Serde serialization
-- **PHP**: Adapt to Laravel models and Eloquent patterns
+### TypeScript/Node.js Example
 
-### Framework Examples
-The authentication patterns can be adapted to:
-- **Express.js**: JWT middleware and Passport.js integration
-- **Django**: Django REST framework with token authentication
-- **FastAPI**: OAuth2 with JWT tokens and dependency injection
-- **Ruby on Rails**: Devise with JWT tokens
-- **Spring Security**: JWT authentication filters
+**Domain Error Pattern**
+```typescript
+// types/errors.ts
+export class DomainError extends Error {
+  constructor(
+    public code: string,
+    public message: string,
+    public statusCode: number = 500,
+    public details?: Record<string, unknown>
+  ) {
+    super(message);
+    this.name = 'DomainError';
+  }
+}
+
+export const Errors = {
+  UserNotFound: new DomainError('USER_NOT_FOUND', 'User not found', 404),
+  InvalidEmail: new DomainError('INVALID_EMAIL', 'Invalid email format', 400),
+  DuplicateEmail: new DomainError('DUPLICATE_EMAIL', 'Email already exists', 409),
+} as const;
+```
+
+**Repository Pattern**
+```typescript
+// repositories/user.repository.ts
+export interface UserRepository {
+  create(user: CreateUserDTO): Promise<User>;
+  findById(id: string): Promise<User | null>;
+  findByEmail(email: string): Promise<User | null>;
+  update(id: string, data: UpdateUserDTO): Promise<User>;
+  delete(id: string): Promise<void>;
+}
+
+export class PrismaUserRepository implements UserRepository {
+  constructor(private prisma: PrismaClient) {}
+
+  async create(data: CreateUserDTO): Promise<User> {
+    return this.prisma.user.create({ data });
+  }
+
+  async findByEmail(email: string): Promise<User | null> {
+    return this.prisma.user.findUnique({ where: { email } });
+  }
+}
+```
+
+**Service Layer**
+```typescript
+// services/user.service.ts
+export class UserService {
+  constructor(
+    private userRepo: UserRepository,
+    private validator: UserValidator,
+    private cache: CacheService
+  ) {}
+
+  async createUser(req: CreateUserRequest): Promise<User> {
+    await this.validator.validateCreateUser(req);
+
+    const existing = await this.userRepo.findByEmail(req.email);
+    if (existing) throw Errors.DuplicateEmail;
+
+    const user = await this.userRepo.create({
+      email: req.email,
+      name: req.name,
+      status: 'active',
+    });
+
+    await this.cache.set(`user:${user.id}`, user, 3600);
+    return user;
+  }
+}
+```
+
+### Python Example
+
+**Domain Error Pattern**
+```python
+# errors.py
+from dataclasses import dataclass
+from typing import Optional, Dict, Any
+
+@dataclass
+class DomainError(Exception):
+    code: str
+    message: str
+    status_code: int = 500
+    details: Optional[Dict[str, Any]] = None
+
+class Errors:
+    USER_NOT_FOUND = DomainError("USER_NOT_FOUND", "User not found", 404)
+    INVALID_EMAIL = DomainError("INVALID_EMAIL", "Invalid email format", 400)
+    DUPLICATE_EMAIL = DomainError("DUPLICATE_EMAIL", "Email already exists", 409)
+```
+
+**Repository Pattern**
+```python
+# repositories/user_repository.py
+from abc import ABC, abstractmethod
+from typing import Optional
+from models import User, CreateUserDTO
+
+class UserRepository(ABC):
+    @abstractmethod
+    async def create(self, user: CreateUserDTO) -> User: ...
+
+    @abstractmethod
+    async def find_by_id(self, id: str) -> Optional[User]: ...
+
+    @abstractmethod
+    async def find_by_email(self, email: str) -> Optional[User]: ...
+
+class SQLAlchemyUserRepository(UserRepository):
+    def __init__(self, session: AsyncSession):
+        self.session = session
+
+    async def create(self, data: CreateUserDTO) -> User:
+        user = User(**data.dict())
+        self.session.add(user)
+        await self.session.commit()
+        await self.session.refresh(user)
+        return user
+
+    async def find_by_email(self, email: str) -> Optional[User]:
+        result = await self.session.execute(
+            select(User).where(User.email == email)
+        )
+        return result.scalar_one_or_none()
+```
+
+**Service Layer**
+```python
+# services/user_service.py
+class UserService:
+    def __init__(
+        self,
+        user_repo: UserRepository,
+        validator: UserValidator,
+        cache: CacheService
+    ):
+        self.user_repo = user_repo
+        self.validator = validator
+        self.cache = cache
+
+    async def create_user(self, req: CreateUserRequest) -> User:
+        await self.validator.validate_create_user(req)
+
+        existing = await self.user_repo.find_by_email(req.email)
+        if existing:
+            raise Errors.DUPLICATE_EMAIL
+
+        user = await self.user_repo.create(CreateUserDTO(
+            email=req.email,
+            name=req.name,
+            status="active"
+        ))
+
+        await self.cache.set(f"user:{user.id}", user, ttl=3600)
+        return user
+```
+
+### Java/Spring Boot Example
+
+**Domain Error Pattern**
+```java
+// exceptions/DomainError.java
+@Getter
+public class DomainError extends RuntimeException {
+    private final String code;
+    private final int statusCode;
+    private final Map<String, Object> details;
+
+    public DomainError(String code, String message, int statusCode) {
+        super(message);
+        this.code = code;
+        this.statusCode = statusCode;
+        this.details = new HashMap<>();
+    }
+
+    public static final DomainError USER_NOT_FOUND =
+        new DomainError("USER_NOT_FOUND", "User not found", 404);
+    public static final DomainError DUPLICATE_EMAIL =
+        new DomainError("DUPLICATE_EMAIL", "Email already exists", 409);
+}
+```
+
+**Repository Pattern**
+```java
+// repositories/UserRepository.java
+@Repository
+public interface UserRepository extends JpaRepository<User, UUID> {
+    Optional<User> findByEmail(String email);
+    List<User> findByStatus(UserStatus status);
+}
+```
+
+**Service Layer**
+```java
+// services/UserService.java
+@Service
+@RequiredArgsConstructor
+public class UserService {
+    private final UserRepository userRepository;
+    private final UserValidator validator;
+    private final CacheService cache;
+
+    @Transactional
+    public User createUser(CreateUserRequest request) {
+        validator.validateCreateUser(request);
+
+        userRepository.findByEmail(request.getEmail())
+            .ifPresent(u -> { throw DomainError.DUPLICATE_EMAIL; });
+
+        User user = User.builder()
+            .email(request.getEmail())
+            .name(request.getName())
+            .status(UserStatus.ACTIVE)
+            .build();
+
+        User saved = userRepository.save(user);
+        cache.set("user:" + saved.getId(), saved, Duration.ofHours(1));
+        return saved;
+    }
+}
+```
+
+### Framework-Specific Authentication
+
+**Express.js JWT Middleware**
+```typescript
+// middleware/auth.ts
+export const authMiddleware = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const token = req.headers.authorization?.replace('Bearer ', '');
+  if (!token) return res.status(401).json({ error: 'No token provided' });
+
+  try {
+    const payload = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
+    req.user = await userService.findById(payload.sub);
+    next();
+  } catch {
+    res.status(401).json({ error: 'Invalid token' });
+  }
+};
+```
+
+**FastAPI Dependency Injection**
+```python
+# dependencies/auth.py
+async def get_current_user(
+    token: str = Depends(oauth2_scheme),
+    user_service: UserService = Depends(get_user_service)
+) -> User:
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
+        user = await user_service.find_by_id(payload["sub"])
+        if not user:
+            raise HTTPException(status_code=401, detail="User not found")
+        return user
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Invalid token")
+```
+
+**Spring Security Filter**
+```java
+// security/JwtAuthFilter.java
+@Component
+@RequiredArgsConstructor
+public class JwtAuthFilter extends OncePerRequestFilter {
+    private final JwtService jwtService;
+    private final UserService userService;
+
+    @Override
+    protected void doFilterInternal(
+        HttpServletRequest request,
+        HttpServletResponse response,
+        FilterChain chain
+    ) throws ServletException, IOException {
+        String token = extractToken(request);
+        if (token != null && jwtService.isValid(token)) {
+            String userId = jwtService.extractSubject(token);
+            User user = userService.findById(UUID.fromString(userId));
+            var auth = new UsernamePasswordAuthenticationToken(
+                user, null, user.getAuthorities()
+            );
+            SecurityContextHolder.getContext().setAuthentication(auth);
+        }
+        chain.doFilter(request, response);
+    }
+}
 
 ## Inspiration
 

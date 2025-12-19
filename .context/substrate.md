@@ -9,6 +9,8 @@ This is the entry point for [Your Project Name]'s comprehensive documentation sy
 - **[Authentication](./auth/overview.md)** - Security model, auth flows, and integration patterns
 - **[API](./api/endpoints.md)** - REST endpoints, headers, and usage examples
 - **[Database](./database/schema.md)** - Data models, schema design, and migrations
+- **[UI](./ui/overview.md)** - Component architecture, design tokens, and frontend patterns
+- **[SEO](./seo/overview.md)** - Meta tags, structured data, and performance optimization
 - **[Guidelines](./guidelines.md)** - Development workflow and cross-cutting concerns
 
 ### Quick Access
@@ -16,7 +18,7 @@ This is the entry point for [Your Project Name]'s comprehensive documentation sy
 # Project overview and architecture
 cat .context/substrate.md .context/architecture/overview.md
 
-# Security and authentication context  
+# Security and authentication context
 cat .context/auth/overview.md .context/auth/security.md
 
 # API reference and examples
@@ -24,6 +26,12 @@ cat .context/api/endpoints.md .context/api/examples.md
 
 # Database schema and models
 cat .context/database/schema.md .context/database/models.md
+
+# UI components and design system
+cat .context/ui/overview.md .context/ui/patterns.md
+
+# SEO and structured data
+cat .context/seo/overview.md
 ```
 
 ## Methodology Overview
