@@ -1,6 +1,38 @@
 # AI Agents and Context Usage Guide
 
-This document provides specific guidance for AI agents and developers on how to effectively use the Substrate documentation system for consistent, accurate code generation and project understanding.
+This file is for AI tools that don't auto-discover project context (ChatGPT, Cursor, Copilot, generic Claude interfaces). It explains how to manually include `.context/` files in your prompts.
+
+**Using Claude Code?** You don't need this file. Claude Code automatically reads `CLAUDE.md` which handles context discovery for you.
+
+## How the .context Method Works
+
+```
+┌─────────────────────────────────────────────────────┐
+│                  .context/ folder                    │
+│         (Your structured documentation)              │
+│                                                      │
+│  substrate.md, architecture/, auth/, api/, etc.     │
+└─────────────────────────────────────────────────────┘
+                         ▲
+                         │
+         ┌───────────────┴───────────────┐
+         │                               │
+    ┌────┴────┐                    ┌─────┴─────┐
+    │CLAUDE.md│                    │ agents.md │
+    │         │                    │(you are   │
+    │ Claude  │                    │  here)    │
+    │  Code   │                    │           │
+    │(auto)   │                    │ (manual)  │
+    └─────────┘                    └───────────┘
+```
+
+**CLAUDE.md** is for Claude Code. It's auto-loaded at session start.
+
+**agents.md** (this file) is for other AI tools. You manually copy `.context/` files into your prompts following the patterns below.
+
+Both point to the same `.context/` documentation.
+
+---
 
 ## Context Consumption Patterns
 

@@ -52,6 +52,49 @@ Modern software development faces a documentation crisis:
 
 The Substrate Methodology transforms documentation from a burden into a force multiplier, creating a comprehensive knowledge base that grows with your codebase.
 
+## How the .context Method Works with AI Tools
+
+The `.context/` folder is the core of this methodology. It contains your structured documentation. But different AI tools need different ways to discover and use this context.
+
+### The Entry Point Problem
+
+AI tools need to know your `.context/` folder exists and how to use it. This is solved differently depending on your tool:
+
+| AI Tool | Entry Point | How It Works |
+|---------|-------------|--------------|
+| **Claude Code** (Anthropic CLI) | `CLAUDE.md` | Auto-loaded at session start. Claude Code reads this file automatically and follows its instructions to reference `.context/` files. |
+| **Other AI tools** (ChatGPT, Cursor, Copilot, generic Claude) | `agents.md` | Manual inclusion. You copy relevant `.context/` files into your prompts following the patterns in agents.md. |
+
+### Why Two Files?
+
+**CLAUDE.md** is a Claude Code feature. When you start a Claude Code session, it automatically reads `CLAUDE.md` from your project root and treats it as persistent instructions. This means Claude Code will automatically know to check `.context/` files before generating code.
+
+**agents.md** exists for AI tools that don't have this auto-discovery feature. It documents how to manually feed context into your prompts for consistent results.
+
+### The Relationship
+
+```
+┌─────────────────────────────────────────────────────┐
+│                  .context/ folder                    │
+│         (Your structured documentation)              │
+│                                                      │
+│  substrate.md, architecture/, auth/, api/, etc.     │
+└─────────────────────────────────────────────────────┘
+                         ▲
+                         │
+         ┌───────────────┴───────────────┐
+         │                               │
+    ┌────┴────┐                    ┌─────┴─────┐
+    │CLAUDE.md│                    │ agents.md │
+    │         │                    │           │
+    │ Claude  │                    │  Other    │
+    │  Code   │                    │ AI Tools  │
+    │(auto)   │                    │ (manual)  │
+    └─────────┘                    └───────────┘
+```
+
+Both files point to the same `.context/` documentation. They're just different bridges for different tools.
+
 ## Real-World Example
 
 See the methodology in action: [.context-designs](https://github.com/andrefigueira/.context-designs) - A complete UI component library built with Tailwind CSS using the .context method. This project demonstrates how documentation-as-context enables consistent design system implementation and AI-assisted component generation.
@@ -60,7 +103,8 @@ See the methodology in action: [.context-designs](https://github.com/andrefiguei
 
 ```
 README.md                     # Project introduction and quick start
-agents.md                     # AI agent usage patterns and guidelines
+CLAUDE.md                     # Claude Code configuration (use this if using Claude Code CLI)
+agents.md                     # AI agent usage patterns (use this for other AI tools)
 .context/
 ├── substrate.md              # Entry point and methodology guide
 ├── architecture/             # System design and patterns
