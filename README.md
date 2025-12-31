@@ -95,6 +95,37 @@ AI tools need to know your `.context/` folder exists and how to use it. This is 
 
 Both files point to the same `.context/` documentation. They're just different bridges for different tools.
 
+## Hot Tip: Iterate on Your .context
+
+Your `.context/` folder is a living document. Once you've created it, have your AI agent review and validate it against your actual codebase. This catches gaps, outdated information, and opportunities to add richer context.
+
+Use this prompt to validate and improve your substrate:
+
+```
+Review my .context/ documentation against the actual codebase. For each domain file:
+
+1. **Accuracy check**: Does the documentation match the current implementation? Flag any outdated patterns, deprecated approaches, or missing features.
+
+2. **Completeness check**: What's documented in the code but missing from .context/? Look for:
+   - Undocumented API endpoints
+   - Missing error handling patterns
+   - Security measures not captured
+   - Database fields/tables not in schema docs
+   - UI components without documentation
+
+3. **Richness check**: Where could the documentation be more useful? Consider:
+   - Adding more code examples
+   - Including edge cases and error scenarios
+   - Documenting "why" decisions were made (Decision History sections)
+   - Adding Mermaid diagrams for complex flows
+
+4. **Consistency check**: Are naming conventions, patterns, and terminology consistent across all .context/ files?
+
+Provide a prioritized list of improvements with specific suggestions for each.
+```
+
+Run this periodically (monthly or after major features) to keep your substrate accurate and valuable.
+
 ## Real-World Example
 
 See the methodology in action: [.context-designs](https://github.com/andrefigueira/.context-designs) - A complete UI component library built with Tailwind CSS using the .context method. This project demonstrates how documentation-as-context enables consistent design system implementation and AI-assisted component generation.
