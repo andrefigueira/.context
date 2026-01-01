@@ -140,37 +140,50 @@ CLAUDE.md                     # Claude Code configuration (use this if using Cla
 agents.md                     # AI agent usage patterns (use this for other AI tools)
 .context/
 ├── substrate.md              # Entry point and methodology guide
+│
+├── # AI-Specific Context
 ├── ai-rules.md               # Hard constraints for AI code generation
 ├── glossary.md               # Project-specific terminology
 ├── anti-patterns.md          # What NOT to do (with examples)
 ├── boundaries.md             # What AI should/shouldn't modify
 ├── debt.md                   # Known technical debt registry
+│
+├── # Operational
+├── workflows.md              # Step-by-step development guides
+├── env.md                    # Environment variables documentation
+├── errors.md                 # Error codes catalog
+├── testing.md                # Testing strategy and standards
+├── performance.md            # Performance budgets and guidelines
+├── dependencies.md           # Approved packages and libraries
+├── code-review.md            # Code review checklist
+├── monitoring.md             # Logging, metrics, observability
+├── events.md                 # Domain events catalog
+├── feature-flags.md          # Feature flag patterns
+├── versioning.md             # API versioning strategy
+├── changelog.md              # Substrate evolution log
+│
+├── # Prompts
+├── prompts/                  # Pre-built AI prompts
+│   ├── new-endpoint.md      # Adding API endpoints
+│   ├── new-feature.md       # Implementing features
+│   ├── fix-bug.md           # Debugging issues
+│   ├── refactor.md          # Refactoring code
+│   ├── review.md            # Code review
+│   ├── security-audit.md    # Security review
+│   ├── performance.md       # Performance optimization
+│   └── documentation.md     # Writing docs
+│
+├── # Decisions
 ├── decisions/                # Architecture Decision Records
-│   ├── README.md            # ADR template and index
-│   ├── 001-jwt-authentication.md
-│   ├── 002-repository-pattern.md
-│   └── 003-postgresql-database.md
+│   └── [ADR files]
+│
+├── # Domain Documentation
 ├── architecture/             # System design and patterns
-│   ├── overview.md          # System architecture with diagrams
-│   ├── dependencies.md      # Dependency injection patterns
-│   └── patterns.md          # Code organization and error handling
 ├── auth/                     # Authentication and security
-│   ├── overview.md          # JWT authentication flows
-│   ├── integration.md       # HTTP middleware integration
-│   └── security.md          # Security model and threat mitigation
 ├── api/                      # API reference and examples
-│   ├── endpoints.md         # REST API documentation
-│   ├── headers.md           # HTTP headers and CORS
-│   └── examples.md          # Client implementation examples
 ├── database/                 # Data models and migrations
-│   ├── schema.md            # PostgreSQL schema design
-│   ├── models.md            # Data models and validation
-│   └── migrations.md        # Migration strategy and tooling
 ├── ui/                       # Frontend and design system
-│   ├── overview.md          # Component architecture and tokens
-│   └── patterns.md          # UI implementation patterns
 ├── seo/                      # Search engine optimization
-│   └── overview.md          # Meta tags, structured data, performance
 └── guidelines.md             # Development workflows and standards
 ```
 

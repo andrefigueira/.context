@@ -95,10 +95,33 @@ Both point to the same `.context/` documentation.
 |------|---------|
 | `.context/seo/overview.md` | Meta tags, structured data schemas, Core Web Vitals |
 
-### Cross-Cutting
+### Operational
 | File | Purpose |
 |------|---------|
-| `.context/guidelines.md` | Git workflow, testing standards, deployment, code review |
+| `.context/workflows.md` | Step-by-step development guides |
+| `.context/env.md` | Environment variables documentation |
+| `.context/errors.md` | Error codes catalog |
+| `.context/testing.md` | Testing strategy and standards |
+| `.context/performance.md` | Performance budgets and guidelines |
+| `.context/dependencies.md` | Approved packages and libraries |
+| `.context/code-review.md` | Code review checklist |
+| `.context/monitoring.md` | Logging, metrics, observability |
+| `.context/events.md` | Domain events catalog |
+| `.context/feature-flags.md` | Feature flag patterns |
+| `.context/versioning.md` | API versioning strategy |
+| `.context/changelog.md` | Substrate evolution log |
+| `.context/guidelines.md` | Git workflow, testing, deployment |
+
+### Prompts
+Pre-built prompts in `.context/prompts/`:
+- `new-endpoint.md` - Adding API endpoints
+- `new-feature.md` - Implementing features
+- `fix-bug.md` - Debugging issues
+- `refactor.md` - Refactoring code
+- `review.md` - Code review
+- `security-audit.md` - Security review
+- `performance.md` - Performance optimization
+- `documentation.md` - Writing docs
 
 ## Instructions for Claude Code
 

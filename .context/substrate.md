@@ -13,6 +13,24 @@ These files help AI tools work better with this codebase:
 - **[Technical Debt](./debt.md)** - Known debt to avoid compounding
 - **[Decisions](./decisions/README.md)** - Architecture Decision Records
 
+### Operational Context
+- **[Workflows](./workflows.md)** - Step-by-step development guides
+- **[Environment](./env.md)** - Environment variables documentation
+- **[Errors](./errors.md)** - Error codes catalog
+- **[Testing](./testing.md)** - Testing strategy and standards
+- **[Performance](./performance.md)** - Performance budgets and guidelines
+- **[Dependencies](./dependencies.md)** - Approved packages and libraries
+- **[Code Review](./code-review.md)** - Code review checklist
+- **[Monitoring](./monitoring.md)** - Logging, metrics, observability
+- **[Events](./events.md)** - Domain events catalog
+- **[Feature Flags](./feature-flags.md)** - Feature flag patterns
+- **[Versioning](./versioning.md)** - API versioning strategy
+- **[Changelog](./changelog.md)** - Substrate evolution log
+
+### Pre-Built Prompts
+Copy-paste prompts for common tasks in [prompts/](./prompts/):
+- New endpoint, new feature, bug fix, refactor, review, security audit, performance, documentation
+
 ### Core Domains
 - **[Architecture](./architecture/overview.md)** - System design, patterns, and architectural decisions
 - **[Authentication](./auth/overview.md)** - Security model, auth flows, and integration patterns
