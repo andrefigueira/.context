@@ -13,7 +13,7 @@ A complete "Documentation as Code as Context" template implementing the Substrat
 The Substrate Methodology solves the critical problem of outdated documentation and AI hallucinations by creating a structured, domain-organized documentation system in a `.context/` directory. This approach:
 
 - **Eliminates documentation drift** through Git-native versioning
-- **Reduces AI hallucinations by 50%+** with structured context
+- **Reduces AI hallucinations** with structured context
 - **Accelerates onboarding** with comprehensive domain knowledge
 - **Captures decision history** for future reference
 - **Scales development teams** with consistent patterns
