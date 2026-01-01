@@ -4,7 +4,7 @@
 [![Stars](https://img.shields.io/github/stars/andrefigueira/.context?style=social)](https://github.com/andrefigueira/.context/stargazers)
 [![Documentation](https://img.shields.io/badge/docs-substrate-blue.svg)](./.context/)
 
-> **TL;DR**: Create a `.context/` folder in your project with structured markdown documentation. AI tools read it to understand your codebase, reducing hallucinations and producing code that follows your patterns. This repo is the template.
+> **TL;DR**: Give AI tools a brain dump of your project so they stop guessing. A `.context/` folder with structured docs = AI that actually understands your codebase.
 
 A complete "Documentation as Code as Context" template implementing the Substrate Methodology. Transform any software project into a self-documenting, AI-optimized codebase with modular, Git-native documentation that serves as a living knowledge base.
 
@@ -53,6 +53,79 @@ Modern software development faces a documentation crisis:
 - Onboarding takes weeks instead of days
 
 The Substrate Methodology transforms documentation from a burden into a force multiplier, creating a comprehensive knowledge base that grows with your codebase.
+
+## Before & After
+
+**Without .context:**
+```
+Prompt: "Add a password reset endpoint"
+
+AI output: Generic implementation, wrong auth pattern,
+missing your error codes, doesn't match your architecture.
+You spend 30 min fixing it.
+```
+
+**With .context:**
+```
+Prompt: "Add a password reset endpoint"
+
+AI output: Uses your JWT pattern, your error codes (AUTH_*),
+your service/repository layers, your validation approach.
+Ready to use.
+```
+
+The difference is context. AI tools are capable. They just don't know your project.
+
+## Minimal Starter (5 Files)
+
+Don't have time for 47 files? Start with these 5:
+
+| File | Purpose | Time |
+|------|---------|------|
+| `substrate.md` | Entry point, project overview | 15 min |
+| `ai-rules.md` | Hard constraints (naming, patterns) | 20 min |
+| `anti-patterns.md` | What NOT to do | 15 min |
+| `architecture/overview.md` | System design, layers | 30 min |
+| `glossary.md` | Your terminology | 10 min |
+
+That's 90 minutes to massively improve AI output. Add more files as needed.
+
+## Adding to Existing Projects
+
+Already have a codebase? Here's how to retrofit:
+
+1. **Create the folder:**
+   ```bash
+   mkdir -p .context/architecture .context/auth .context/api .context/database
+   ```
+
+2. **Generate initial substrate with AI:**
+   ```
+   Analyze this codebase and generate .context/ documentation following
+   the structure at https://github.com/andrefigueira/.context
+
+   Focus on:
+   - Current architecture and patterns
+   - Authentication approach
+   - API conventions
+   - Database schema
+   - Naming conventions
+   - Known technical debt
+   ```
+
+3. **Review and refine** - AI gets you 80%, you refine the rest
+
+4. **Validate regularly** - Use the [Hot Tip prompt](#hot-tip-iterate-on-your-context) to keep it accurate
+
+## Add the Badge
+
+Using .context in your project? Add the badge:
+
+```markdown
+[![.context](https://img.shields.io/badge/.context-method-blue)](https://github.com/andrefigueira/.context)
+```
+
+[![.context](https://img.shields.io/badge/.context-method-blue)](https://github.com/andrefigueira/.context)
 
 ## How the .context Method Works with AI Tools
 
