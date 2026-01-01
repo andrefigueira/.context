@@ -2,7 +2,7 @@
 
 This file is for AI tools that don't auto-discover project context (ChatGPT, Cursor, Copilot, generic Claude interfaces). It explains how to manually include `.context/` files in your prompts.
 
-**Using Claude Code?** You don't need this file. Claude Code automatically reads `CLAUDE.md` which handles context discovery for you.
+**Using Claude Code?** See `CLAUDE.md` instead. Claude Code automatically reads that file at session start, so you don't need to manually include context.
 
 ## How the .context Method Works
 

@@ -4,6 +4,8 @@
 [![Stars](https://img.shields.io/github/stars/andrefigueira/.context?style=social)](https://github.com/andrefigueira/.context/stargazers)
 [![Documentation](https://img.shields.io/badge/docs-substrate-blue.svg)](./.context/)
 
+> **TL;DR**: Create a `.context/` folder in your project with structured markdown documentation. AI tools read it to understand your codebase, reducing hallucinations and producing code that follows your patterns. This repo is the template.
+
 A complete "Documentation as Code as Context" template implementing the Substrate Methodology. Transform any software project into a self-documenting, AI-optimized codebase with modular, Git-native documentation that serves as a living knowledge base.
 
 ## What is the Substrate Methodology?
@@ -42,10 +44,10 @@ The Substrate Methodology solves the critical problem of outdated documentation 
 4. **Generate your substrate with AI:**
    Use the comprehensive AI prompt below to create domain-specific documentation for your project. See [AI-Assisted Substrate Generation](#ai-assisted-substrate-generation) section for the complete prompt.
 
-## Why This Matters in 2025
+## Why This Matters
 
 Modern software development faces a documentation crisis:
-- 73% of developers work with outdated docs
+- Most developers work with outdated or incomplete docs
 - AI tools hallucinate when missing context
 - Knowledge silos slow team velocity
 - Onboarding takes weeks instead of days
