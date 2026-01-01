@@ -39,6 +39,23 @@ Both point to the same `.context/` documentation.
 ### Entry Point
 - `.context/substrate.md` - **Start here.** Methodology overview and navigation guide.
 
+### AI-Specific Context (Read These First)
+| File | Purpose |
+|------|---------|
+| `.context/ai-rules.md` | Hard constraints and non-negotiable standards for code generation |
+| `.context/glossary.md` | Project-specific terminology to use consistently |
+| `.context/anti-patterns.md` | What NOT to do, with bad/good code examples |
+| `.context/boundaries.md` | What you should and should not modify |
+| `.context/debt.md` | Known technical debt to avoid compounding |
+
+### Architecture Decision Records
+| File | Purpose |
+|------|---------|
+| `.context/decisions/README.md` | ADR template and index |
+| `.context/decisions/001-jwt-authentication.md` | Why JWT was chosen |
+| `.context/decisions/002-repository-pattern.md` | Why repository pattern |
+| `.context/decisions/003-postgresql-database.md` | Why PostgreSQL |
+
 ### Architecture Domain
 | File | Purpose |
 |------|---------|

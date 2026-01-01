@@ -4,6 +4,15 @@ This is the entry point for [Your Project Name]'s comprehensive documentation sy
 
 ## Navigation Guide
 
+### AI-Specific Context
+These files help AI tools work better with this codebase:
+- **[AI Rules](./ai-rules.md)** - Hard constraints for code generation
+- **[Glossary](./glossary.md)** - Project-specific terminology
+- **[Anti-Patterns](./anti-patterns.md)** - What NOT to do
+- **[Boundaries](./boundaries.md)** - What AI should/shouldn't modify
+- **[Technical Debt](./debt.md)** - Known debt to avoid compounding
+- **[Decisions](./decisions/README.md)** - Architecture Decision Records
+
 ### Core Domains
 - **[Architecture](./architecture/overview.md)** - System design, patterns, and architectural decisions
 - **[Authentication](./auth/overview.md)** - Security model, auth flows, and integration patterns

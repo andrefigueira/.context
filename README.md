@@ -140,6 +140,16 @@ CLAUDE.md                     # Claude Code configuration (use this if using Cla
 agents.md                     # AI agent usage patterns (use this for other AI tools)
 .context/
 ├── substrate.md              # Entry point and methodology guide
+├── ai-rules.md               # Hard constraints for AI code generation
+├── glossary.md               # Project-specific terminology
+├── anti-patterns.md          # What NOT to do (with examples)
+├── boundaries.md             # What AI should/shouldn't modify
+├── debt.md                   # Known technical debt registry
+├── decisions/                # Architecture Decision Records
+│   ├── README.md            # ADR template and index
+│   ├── 001-jwt-authentication.md
+│   ├── 002-repository-pattern.md
+│   └── 003-postgresql-database.md
 ├── architecture/             # System design and patterns
 │   ├── overview.md          # System architecture with diagrams
 │   ├── dependencies.md      # Dependency injection patterns
