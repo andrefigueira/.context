@@ -1,35 +1,16 @@
 # Substrate Methodology: Documentation as Code as Context
 
-This is the entry point for [Your Project Name]'s comprehensive documentation system. The Substrate methodology transforms your codebase into a self-documenting system optimized for both human understanding and AI consumption.
+Entry point for the project's documentation system. Modular, version-controlled documentation that serves as context for development teams and AI tools.
 
 ## Navigation Guide
 
 ### AI-Specific Context
-These files help AI tools work better with this codebase:
 - **[AI Rules](./ai-rules.md)** - Hard constraints for code generation
 - **[Glossary](./glossary.md)** - Project-specific terminology
 - **[Anti-Patterns](./anti-patterns.md)** - What NOT to do
 - **[Boundaries](./boundaries.md)** - What AI should/shouldn't modify
 - **[Technical Debt](./debt.md)** - Known debt to avoid compounding
 - **[Decisions](./decisions/README.md)** - Architecture Decision Records
-
-### Operational Context
-- **[Workflows](./workflows.md)** - Step-by-step development guides
-- **[Environment](./env.md)** - Environment variables documentation
-- **[Errors](./errors.md)** - Error codes catalog
-- **[Testing](./testing.md)** - Testing strategy and standards
-- **[Performance](./performance.md)** - Performance budgets and guidelines
-- **[Dependencies](./dependencies.md)** - Approved packages and libraries
-- **[Code Review](./code-review.md)** - Code review checklist
-- **[Monitoring](./monitoring.md)** - Logging, metrics, observability
-- **[Events](./events.md)** - Domain events catalog
-- **[Feature Flags](./feature-flags.md)** - Feature flag patterns
-- **[Versioning](./versioning.md)** - API versioning strategy
-- **[Changelog](./changelog.md)** - Substrate evolution log
-
-### Pre-Built Prompts
-Copy-paste prompts for common tasks in [prompts/](./prompts/):
-- New endpoint, new feature, bug fix, refactor, review, security audit, performance, documentation
 
 ### Core Domains
 - **[Architecture](./architecture/overview.md)** - System design, patterns, and architectural decisions
@@ -38,102 +19,41 @@ Copy-paste prompts for common tasks in [prompts/](./prompts/):
 - **[Database](./database/schema.md)** - Data models, schema design, and migrations
 - **[UI](./ui/overview.md)** - Component architecture, design tokens, and frontend patterns
 - **[SEO](./seo/overview.md)** - Meta tags, structured data, and performance optimization
-- **[Guidelines](./guidelines.md)** - Development workflow and cross-cutting concerns
 
-### Quick Access
-```bash
-# Project overview and architecture
-cat .context/substrate.md .context/architecture/overview.md
+### Operational Context
+- **[Workflows](./workflows.md)** - Step-by-step development guides
+- **[Environment](./env.md)** - Environment variables documentation
+- **[Errors](./errors.md)** - Error codes catalog
+- **[Testing](./testing.md)** - Testing strategy and standards
+- **[Performance](./performance.md)** - Performance budgets and guidelines
+- **[Dependencies](./dependencies.md)** - Approved packages and libraries
+- **[Guidelines](./guidelines.md)** - Git workflow, testing, deployment
 
-# Security and authentication context
-cat .context/auth/overview.md .context/auth/security.md
+### Pre-Built Prompts
+Task-specific prompts in [prompts/](./prompts/): new-endpoint, new-feature, fix-bug, refactor, review, security-audit, performance, documentation.
 
-# API reference and examples
-cat .context/api/endpoints.md .context/api/examples.md
+## Key Principles
 
-# Database schema and models
-cat .context/database/schema.md .context/database/models.md
+**Living Documentation**: Lives in Git alongside code, updates through normal PR workflows.
 
-# UI components and design system
-cat .context/ui/overview.md .context/ui/patterns.md
+**Modular Structure**: Domain-organized files allow precise context selection. Load only what you need for the task.
 
-# SEO and structured data
-cat .context/seo/overview.md
-```
+**Specific over Generic**: Document exact patterns used in this project, not general best practices.
 
-## Methodology Overview
-
-The Substrate approach creates modular, version-controlled documentation that serves as executable context for development teams and AI tools. Each domain contains structured Markdown optimized for both human readability and machine parsing.
-
-### Key Principles
-
-**Living Documentation**: Documentation lives in Git alongside code, updating through normal PR workflows. No separate wiki or documentation site that becomes stale.
-
-**Modular Structure**: Domain-organized files allow precise context selection. Need auth context? Pull the auth folder. Working on API changes? Reference the api domain.
-
-**AI Optimization**: Structured format with consistent sections (overview, patterns, examples, rationale) enables reliable AI consumption and reduces hallucinations.
-
-**Decision Capture**: Every file includes rationale sections documenting "why" decisions were made, preserving institutional knowledge.
-
-## Using as AI Context
-
-### For Code Generation
-```bash
-# Generate auth middleware
-cat .context/auth/integration.md .context/auth/security.md | ai-tool
-
-# Create new API endpoint
-cat .context/api/endpoints.md .context/architecture/patterns.md | ai-tool
-
-# Implement database model
-cat .context/database/models.md .context/database/schema.md | ai-tool
-```
-
-### For Code Review
-```bash
-# Review against project standards
-cat .context/architecture/patterns.md .context/guidelines.md | ai-tool --review [code-file]
-```
-
-### For Architecture Decisions
-```bash
-# Understand existing decisions before proposing changes
-cat .context/architecture/*.md | ai-tool --analyze
-```
-
-### Sample AI Prompts
-
-**Feature Implementation**:
-```
-Based on the following project documentation:
-[Include relevant domain files]
-
-Implement [feature description] following the established patterns, security guidelines, and architectural decisions documented above. Ensure the implementation aligns with the decision history and trade-offs already considered.
-```
-
-**Security Review**:
-```
-Review this code for security compliance:
-[Code to review]
-
-Security context:
-[Include .context/auth/security.md]
-
-Check against the documented security model, threat considerations, and established mitigation patterns.
-```
+**Decision Capture**: Every file includes rationale sections documenting "why" decisions were made.
 
 ## Documentation Standards
 
-### File Structure
-Each domain file follows this pattern:
+Each domain file follows this structure:
+
 ```markdown
 # Domain: Specific Topic
-Brief 1-2 sentence overview of what this file covers.
+Brief 1-2 sentence overview.
 
 ## Overview
 High-level description with context.
 
-## Implementation Patterns  
+## Implementation Patterns
 Code examples and standard approaches.
 
 ## Decision History & Trade-offs
@@ -143,116 +63,18 @@ Why choices were made, alternatives considered.
 Concrete usage patterns and code snippets.
 ```
 
-### Content Guidelines
-- **Specific over Generic**: Document exact patterns used in this project, not general best practices
+### When Creating New Domain Files
+- **Specific over Generic**: Document exact patterns, not general best practices
 - **Code Examples**: Include real code snippets adapted for your stack
 - **Decision Rationale**: Always explain why, not just what
 - **Mermaid Diagrams**: Use for complex flows and relationships
-- **Consistent Formatting**: Follow Markdown standards for parsing reliability
+- Keep individual files under 200 lines
 
 ## Extending the System
 
-### Adding New Domains
-Create new folders for project-specific needs:
+Create new domain folders as needed:
 ```bash
-mkdir .context/frontend     # For UI/UX patterns
-mkdir .context/testing      # For test strategies  
-mkdir .context/deployment   # For CI/CD and ops
-mkdir .context/monitoring   # For observability
+mkdir .context/[domain-name]
 ```
 
-### Domain Template
-```markdown
-# Domain: [New Domain Name]
-Overview sentence explaining this domain's scope.
-
-## Overview
-Context and purpose.
-
-## Patterns
-Standard approaches and code examples.
-
-## Decision History & Trade-offs  
-Why this approach, alternatives considered.
-
-## Integration Points
-How this domain connects to others.
-
-## Examples
-Concrete usage patterns.
-```
-
-### Maintenance Workflow
-1. **Update with Code Changes**: When architectural decisions change, update relevant documentation in the same PR
-2. **Review Documentation**: Include documentation review in code review process
-3. **Validate Examples**: Ensure code examples remain current and functional
-4. **Expand Domains**: Add new domains as project complexity grows
-
-## Benefits Realized
-
-### For Development Teams
-- **Faster Onboarding**: New developers understand system architecture quickly
-- **Consistent Implementation**: Documented patterns ensure consistency across team members
-- **Decision Context**: Understand why systems were built as they were
-- **Reduced Cognitive Load**: Reference documentation instead of remembering details
-
-### For AI Tools
-- **Reduced Hallucinations**: Structured context prevents AI from making incorrect assumptions
-- **Consistent Output**: AI generates code following established project patterns
-- **Better Understanding**: Context-aware AI provides more relevant suggestions
-- **Accurate Reviews**: AI can review code against documented standards
-
-### For Project Maintenance
-- **Knowledge Preservation**: Critical decisions and rationale are preserved
-- **Architecture Evolution**: Clear documentation of system changes over time
-- **Technical Debt Management**: Documented trade-offs inform future refactoring decisions
-- **Team Scalability**: Documentation scales knowledge across growing teams
-
-## Recommended Reading Order
-
-Different roles need different paths through this documentation:
-
-### For New Team Members
-1. **substrate.md** (this file) - Orientation
-2. **[architecture/overview.md](./architecture/overview.md)** - System design
-3. **[glossary.md](./glossary.md)** - Project terminology
-4. **[guidelines.md](./guidelines.md)** - Development workflow
-5. **Domain-specific files** based on your first task
-
-### For AI Tools / Code Generation
-1. **[ai-rules.md](./ai-rules.md)** - Hard constraints (read first, always)
-2. **substrate.md** (this file) - Project orientation
-3. **[glossary.md](./glossary.md)** - Use correct terminology
-4. **[anti-patterns.md](./anti-patterns.md)** - What not to do
-5. **Relevant domain files** for the specific task
-
-### For Implementing Features
-1. **[ai-rules.md](./ai-rules.md)** - Constraints
-2. **[architecture/patterns.md](./architecture/patterns.md)** - Code patterns
-3. **Relevant domain overview** (e.g., `auth/overview.md`)
-4. **[errors.md](./errors.md)** - Error handling
-5. **Relevant domain details** as needed
-
-### For Security-Related Work
-1. **[auth/security.md](./auth/security.md)** - Security model
-2. **[auth/overview.md](./auth/overview.md)** - Auth flows
-3. **[boundaries.md](./boundaries.md)** - What not to touch
-4. **[decisions/001-jwt-authentication.md](./decisions/001-jwt-authentication.md)** - Auth decisions
-
-### For Debugging / Troubleshooting
-1. **[errors.md](./errors.md)** - Error codes catalog
-2. **Relevant domain files** for the affected area
-3. **[debt.md](./debt.md)** - Known issues that might be related
-4. **[architecture/patterns.md](./architecture/patterns.md)** - Expected behavior
-
-## Getting Started
-
-1. **Read This File**: Understand the methodology and navigation
-2. **Review Architecture**: Start with [architecture/overview.md](./architecture/overview.md) for system understanding
-3. **Explore Domains**: Browse domain folders relevant to your current work
-4. **Use with AI**: Try the provided prompt patterns with your preferred AI tool
-5. **Contribute**: Update documentation as you make architectural decisions
-
----
-
-**Next Steps**: Begin with [architecture/overview.md](./architecture/overview.md) for a comprehensive system overview, then explore domain-specific documentation based on your current needs.
+Use the domain template above. Update `CLAUDE.md` and `agents.md` when adding new domains.

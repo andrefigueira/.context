@@ -118,28 +118,18 @@ return result, nil
 
 ## Security Anti-Patterns
 
-### Hardcoded Secrets
-```python
-# BAD: Never do this
-API_KEY = "sk-1234567890abcdef"
-DB_PASSWORD = "admin123"
+### Trusting Client Data
+```go
+// BAD: Using user-provided ID for authorization
+userID := r.FormValue("user_id")
+user := db.GetUser(userID)
 
-# GOOD: Environment variables
-API_KEY = os.environ["API_KEY"]
-DB_PASSWORD = os.environ["DB_PASSWORD"]
+// GOOD: Use authenticated user context
+userID := r.Context().Value("authenticated_user_id")
+user := db.GetUser(userID)
 ```
 
-### SQL Injection
-```java
-// BAD: String concatenation
-String query = "SELECT * FROM users WHERE id = " + userId;
-
-// GOOD: Parameterized query
-String query = "SELECT * FROM users WHERE id = ?";
-preparedStatement.setString(1, userId);
-```
-
-### Exposing Stack Traces
+### Exposing Internals in Errors
 ```typescript
 // BAD: Leaking internals
 catch (error) {
@@ -151,17 +141,6 @@ catch (error) {
   logger.error('Operation failed', { error, requestId });
   res.status(500).json({ error: 'Internal server error', requestId });
 }
-```
-
-### Trusting Client Data
-```go
-// BAD: Using user-provided ID for authorization
-userID := r.FormValue("user_id")
-user := db.GetUser(userID)
-
-// GOOD: Use authenticated user context
-userID := r.Context().Value("authenticated_user_id")
-user := db.GetUser(userID)
 ```
 
 ## Testing Anti-Patterns
