@@ -13,7 +13,7 @@ Validate the `.context/` documentation for quality and conformance.
 1. **File size**: Flag any `.context/` file over 200 lines (context bloat risk)
 2. **Required sections**: Each domain file should have Overview, Implementation Patterns, and Decision History sections
 3. **Broken links**: Check that all markdown links to other `.context/` files point to files that exist
-4. **Index sync**: Verify `CLAUDE.md` and `agents.md` reference all files that exist in `.context/`
+4. **Index sync**: Verify `CLAUDE.md` and `AGENTS.md` reference all files that exist in `.context/`
 5. **Stale content**: Flag files that reference patterns or technologies not present in the codebase
 6. **ADR completeness**: Check all ADRs have Status, Context, Decision, and Consequences sections
 

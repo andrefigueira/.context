@@ -1,80 +1,133 @@
-# Substrate Methodology: Documentation as Code as Context
+# Substrate: Research-Backed Documentation as Context
 
-Entry point for the project's documentation system. Modular, version-controlled documentation that serves as context for development teams and AI tools.
+Entry point for the .context method. This file explains how the documentation system is structured and why.
 
-## Navigation Guide
+**Before changing anything here, read [`research.md`](./research.md).** The structure is constrained by measured LLM behavior, not style preference.
 
-### AI-Specific Context
-- **[AI Rules](./ai-rules.md)** - Hard constraints for code generation
-- **[Glossary](./glossary.md)** - Project-specific terminology
-- **[Anti-Patterns](./anti-patterns.md)** - What NOT to do
-- **[Boundaries](./boundaries.md)** - What AI should/shouldn't modify
-- **[Technical Debt](./debt.md)** - Known debt to avoid compounding
-- **[Decisions](./decisions/README.md)** - Architecture Decision Records
+## The Two Tiers
 
-### Core Domains
-- **[Architecture](./architecture/overview.md)** - System design, patterns, and architectural decisions
-- **[Authentication](./auth/overview.md)** - Security model, auth flows, and integration patterns
-- **[API](./api/endpoints.md)** - REST endpoints, headers, and usage examples
-- **[Database](./database/schema.md)** - Data models, schema design, and migrations
-- **[UI](./ui/overview.md)** - Component architecture, design tokens, and frontend patterns
-- **[SEO](./seo/overview.md)** - Meta tags, structured data, and performance optimization
+The methodology has two tiers. Each tier has a different job.
 
-### Operational Context
-- **[Workflows](./workflows.md)** - Step-by-step development guides
-- **[Environment](./env.md)** - Environment variables documentation
-- **[Errors](./errors.md)** - Error codes catalog
-- **[Testing](./testing.md)** - Testing strategy and standards
-- **[Performance](./performance.md)** - Performance budgets and guidelines
-- **[Dependencies](./dependencies.md)** - Approved packages and libraries
-- **[Guidelines](./guidelines.md)** - Git workflow, testing, deployment
+### Tier 1: Always-Loaded Substrate
 
-### Pre-Built Prompts
-Task-specific prompts in [prompts/](./prompts/): new-endpoint, new-feature, fix-bug, refactor, review, security-audit, performance, documentation.
+Content loaded into every LLM conversation on this project. Optimized for accuracy under the constraints from `research.md`.
 
-## Key Principles
+**Hard rules for Tier 1:**
+- Small total footprint. `CLAUDE.md` <=50 lines, `AGENTS.md` <=90 lines (it carries additional cross-tool wiring)
+- Short files. No mid-document drowning
+- Path-scoped where possible. Use `.claude/rules/*.md` for rules that only apply to some files
+- Instruction count stays inside the ~150-200 budget *in aggregate across loaded files*
 
-**Living Documentation**: Lives in Git alongside code, updates through normal PR workflows.
+**Tier 1 files:**
+- `/CLAUDE.md`: entry point for Claude Code (auto-loaded)
+- `/AGENTS.md`: entry point for other AI tools
+- `/.claude/rules/*.md`: path-scoped rules, loaded only when matching files are touched
+- `.context/ai-rules.md`: the minimum set of project-wide hard constraints
+- `.context/glossary.md`: terminology, to prevent synonym drift
 
-**Modular Structure**: Domain-organized files allow precise context selection. Load only what you need for the task.
+### Tier 2: Deep Reference
 
-**Specific over Generic**: Document exact patterns used in this project, not general best practices.
+Opt-in content. Loaded *only* when a task explicitly needs it. Can be long, thorough, and cover edge cases.
 
-**Decision Capture**: Every file includes rationale sections documenting "why" decisions were made.
+**Tier 2 is for:**
+- Domain deep-dives (full API reference, full schema docs)
+- Decision records and rationale
+- Historical context (changelog, deprecation notes)
+- Onboarding material that a human will read
+- Specifications that a task occasionally needs in full
 
-## Documentation Standards
+**Tier 2 files in this template:**
+- `.context/architecture/`, `.context/auth/`, `.context/api/`, `.context/database/`, `.context/ui/`, `.context/seo/`
+- `.context/anti-patterns.md`, `.context/boundaries.md`, `.context/debt.md`
+- `.context/workflows.md`, `.context/env.md`, `.context/errors.md`, `.context/testing.md`, `.context/performance.md`
+- `.context/decisions/`: Architecture Decision Records
+- `.context/prompts/`: pre-built task prompts
+- `.context/guidelines.md`, `.context/monitoring.md`, `.context/events.md`, `.context/feature-flags.md`, `.context/versioning.md`, `.context/dependencies.md`, `.context/code-review.md`
 
-Each domain file follows this structure:
+Tier 2 files are not *bad* because they are long. They are Tier 2 *because* length is acceptable when loading is selective.
+
+## Loading Model
+
+Every Tier 1 file should answer, in order: which files is the task touching, which Tier 1 rule file covers those, and which Tier 2 files (if any) does this task need in full?
+
+```
+Turn begins
+  │
+  ├─► Always loaded: CLAUDE.md (or AGENTS.md) + ai-rules.md + glossary.md
+  │
+  ├─► Path match? Load .claude/rules/<domain>.md
+  │
+  └─► Task needs depth? Load specific Tier 2 file(s) on demand
+```
+
+Nothing else is loaded by default. That is the point.
+
+## Research Anchors
+
+The two-tier structure and the loading model above are constrained by four measured LLM failure modes. See [`research.md`](./research.md) for the findings, their implications, and citations. The summary table in the top-level [README](../README.md#why-this-version-is-different) is the short version.
+
+## File Shape
+
+Tier 1 files (short):
 
 ```markdown
-# Domain: Specific Topic
-Brief 1-2 sentence overview.
+# Title
+One-line purpose.
 
-## Overview
-High-level description with context.
+## Hard rules
+Short list. Each rule is one line.
 
-## Implementation Patterns
-Code examples and standard approaches.
+## Path-scoped loads
+Which rule file maps to which path.
 
-## Decision History & Trade-offs
-Why choices were made, alternatives considered.
+## On-demand loads
+Which Tier 2 file to load for which task.
+```
+
+Tier 2 files (long is fine):
+
+```markdown
+# Domain: Topic
+Brief overview.
+
+## Context
+Why this exists.
+
+## Patterns
+Concrete implementation.
+
+## Rationale
+Why these choices, what was rejected.
 
 ## Examples
-Concrete usage patterns and code snippets.
+Real code.
 ```
 
-### When Creating New Domain Files
-- **Specific over Generic**: Document exact patterns, not general best practices
-- **Code Examples**: Include real code snippets adapted for your stack
-- **Decision Rationale**: Always explain why, not just what
-- **Mermaid Diagrams**: Use for complex flows and relationships
-- Keep individual files under 200 lines
+## Adding to the Methodology
 
-## Extending the System
+Before adding a file, answer:
 
-Create new domain folders as needed:
-```bash
-mkdir .context/[domain-name]
-```
+1. **Which tier does it belong in?** If it is loaded every turn, it is Tier 1. Otherwise Tier 2.
+2. **If Tier 1, can it be path-scoped?** If yes, it belongs in `.claude/rules/`, not in CLAUDE.md.
+3. **If Tier 2, what loads it?** Either a task prompt references it, or a Tier 1 file instructs the agent to load it for specific tasks.
+4. **What does it displace?** If adding 500 tokens to Tier 1, what 500 tokens are leaving?
 
-Use the domain template above. Update `CLAUDE.md` and `agents.md` when adding new domains.
+If you cannot answer (4), the addition is probably a mistake.
+
+## Updating Tier 1 Files
+
+When a project convention evolves:
+- A hard constraint (always applies) → update `.context/ai-rules.md`
+- A path-specific rule → update the matching `.claude/rules/<domain>.md`
+- A terminology change → update `.context/glossary.md`
+- Deeper reference content → update the Tier 2 file, leave Tier 1 pointers unchanged
+
+Do not add path-specific content to the always-loaded tier. Push it down to `.claude/rules/`.
+
+## Further Reading Inside This Repo
+
+- [`research.md`](./research.md): the evidence
+- [`/CLAUDE.md`](../CLAUDE.md): Tier 1 entry for Claude Code
+- [`/AGENTS.md`](../AGENTS.md): Tier 1 entry for other AI tools
+- [`/.claude/rules/README.md`](../.claude/rules/README.md): how path-scoped rules work
+- [`./decisions/004-research-backed-pivot.md`](./decisions/004-research-backed-pivot.md): why the methodology was restructured

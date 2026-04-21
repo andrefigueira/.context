@@ -32,7 +32,7 @@ How this domain connects to others.
 3. Create `patterns.md` if the domain has code patterns to document
 4. Update `.context/substrate.md` to add the new domain under "Core Domains"
 5. Add the domain to `CLAUDE.md` under "Task-Specific Context" if it needs task-specific file pointers
-6. Update `agents.md` to add the domain under "Context Files by Task"
+6. Update `AGENTS.md` to add the domain under "Context Files by Task"
 
 ## Rules
 - Follow existing domain structure (see `.context/auth/` or `.context/api/` as examples)

@@ -42,11 +42,12 @@ What becomes easier or more difficult to do because of this change?
 | [001](./001-jwt-authentication.md) | Use JWT for Authentication | Accepted | 2024-01-15 |
 | [002](./002-repository-pattern.md) | Implement Repository Pattern | Accepted | 2024-01-15 |
 | [003](./003-postgresql-database.md) | Use PostgreSQL as Primary Database | Accepted | 2024-01-15 |
+| [004](./004-research-backed-pivot.md) | Pivot to Research-Backed Two-Tier Methodology | Accepted | 2026-04-21 |
 
 ## Creating a New ADR
 
 1. Copy the template above
-2. Number sequentially (next: ADR-004)
+2. Number sequentially (next: ADR-005)
 3. Fill in all sections
 4. Submit via PR for team review
 5. Update the index above

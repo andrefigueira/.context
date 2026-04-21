@@ -1,39 +1,41 @@
 # Claude Code Configuration
 
-This repository teaches the **.context method** - documentation-as-code-as-context. The documentation lives in `.context/`. This file tells Claude Code how to use it.
+This repo teaches the **.context method**: documentation-as-code-as-context, tuned to measured LLM behavior. See `.context/research.md` for the evidence.
 
-## Before Generating Code
+## Always loaded (Tier 1)
 
-1. Read `.context/ai-rules.md` first - hard constraints that override everything
-2. Read domain-specific files relevant to the task (see below)
-3. Follow patterns in `.context/architecture/patterns.md`
+- `.context/ai-rules.md`: project-wide hard constraints
+- `.context/glossary.md`: terminology. Do not invent synonyms
 
-## Task-Specific Context
+## Path-scoped rules (load when touching matching files)
 
-**Authentication work:**
-Read `.context/auth/overview.md`, `.context/auth/security.md`, `.context/auth/integration.md`
+This table is the source of truth. AGENTS.md mirrors it. Keep them in sync.
 
-**API development:**
-Read `.context/api/endpoints.md`, `.context/api/examples.md`, `.context/architecture/patterns.md`
+When a file matches multiple rows, load every matching rule file. Pages matching both `ui.md` (component rules) and `seo.md` (metadata, structured data) is intentional.
 
-**Database work:**
-Read `.context/database/schema.md`, `.context/database/models.md`
+| Touching | Load |
+|---|---|
+| `src/api/**`, `src/routes/**`, `src/handlers/**`, `app/api/**` | `.claude/rules/api.md` |
+| `src/auth/**`, `src/middleware/auth*`, `src/security/**` | `.claude/rules/auth.md` |
+| `src/models/**`, `src/db/**`, `src/repositories/**`, `migrations/**`, `*.sql` | `.claude/rules/database.md` |
+| `src/components/**`, `app/**` (non-page), `*.tsx`, `*.jsx`, `*.vue`, `*.svelte` | `.claude/rules/ui.md` |
+| `src/app/**/page.*`, `src/pages/**`, `public/sitemap*`, `public/robots*`, `src/head/**` | `.claude/rules/seo.md` |
+| `**/*.test.*`, `**/*.spec.*`, `tests/**`, `__tests__/**` | `.claude/rules/testing.md` |
 
-**Frontend/UI work:**
-Read `.context/ui/overview.md`, `.context/ui/patterns.md`
+## On-demand (Tier 2, load when the task asks for depth)
 
-**SEO implementation:**
-Read `.context/seo/overview.md`
+- Boundaries (what requires human review) → `.context/boundaries.md`
+- Anti-patterns → `.context/anti-patterns.md`
+- Tech debt register → `.context/debt.md`
+- ADRs → `.context/decisions/README.md`
+- Pre-built task prompts → `.context/prompts/`
 
-## Key Constraints
+## Non-negotiables
 
-- Use terminology from `.context/glossary.md` - do not invent synonyms
-- Check `.context/anti-patterns.md` before writing code
-- Respect boundaries in `.context/boundaries.md` - some files require human review
-- Don't compound debt listed in `.context/debt.md`
-- When making architectural decisions, update relevant `.context/` files in the same change
-- ADR template and index live in `.context/decisions/README.md`
+- When making an architectural decision, update the relevant file in the same change
+- Do not compound items listed in `.context/debt.md`
+- For files listed in `.context/boundaries.md`, propose a diff instead of editing
 
-## Pre-Built Prompts
+## Why it is shaped this way
 
-Task-specific prompts in `.context/prompts/`: new-endpoint, new-feature, fix-bug, refactor, review, security-audit, performance, documentation.
+Long prompts hurt accuracy (13-85%). Models reliably follow ~150-200 instructions, not more. Middle-of-document content is ignored. Path-scoped rules cut rule-token usage per turn sharply because most rules are inactive for most tasks. Details in `.context/research.md`.
